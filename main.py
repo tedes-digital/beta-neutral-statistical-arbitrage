@@ -164,6 +164,8 @@ def engle_granger_test(series_x, series_y, significance=0.05):
     return pvalue
 
 if __name__ == "__main__":
+    # Ensure all relative paths are resolved from the project folder
+    os.chdir(os.path.dirname(os.path.abspath(__file__)))
     # === Ticker retrieval: Download S&P 500 tickers ===
     import shutil
     if os.path.exists("price_data"):
@@ -262,10 +264,10 @@ if __name__ == "__main__":
     print("\nBeta-neutral weights:")
     print(w_df)
     # Export weights
-    output_file = os.path.join("beta_weights", "beta_neutral_weights.xlsx")
+    output_file = os.path.join("beta_weights", "beta_neutral_weights.csv")
     if not os.path.exists("beta_weights"):
         os.makedirs("beta_weights")
-    w_df.to_csv(output_file.replace('.xlsx', '.csv'), index=False, sep=';')
+    w_df.to_csv(output_file, index=False, sep=';')
     print(f"Saved beta-neutral weights to {output_file}")
 
     # === OOS signal generation: Generate trading signals for all pairs ===
